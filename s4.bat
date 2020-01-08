@@ -1,13 +1,9 @@
+:: SaveShareSystemScript (s4) main script
 
-
-
-%USERNAME% 
-https://stackoverflow.com/questions/2866117/windows-batch-script-to-read-an-ini-file
+:: OPEN AND ANALYSE CONFIG.INI
 @setlocal enableextensions enabledelayedexpansion
 @echo off
-set file=%~1
-set area=[%~2]
-set key=%~3
+set file=config.ini
 set currarea=
 for /f "usebackq delims=" %%a in ("!file!") do (
     set ln=%%a
@@ -17,10 +13,20 @@ for /f "usebackq delims=" %%a in ("!file!") do (
         for /f "tokens=1,2 delims==" %%b in ("!ln!") do (
             set currkey=%%b
             set currval=%%c
-            if "x!area!"=="x!currarea!" if "x!key!"=="x!currkey!" (
-                echo !currval!
-            )
+
+            :: OPERATE ARGUMENTS HERE ::
+
+            :: PRINT VARIABLES FOR OPERATION
+            echo !currarea! !currkey! !currval!
+
+            :: test variables contents
+            dir !currval!
+
+            :: NEXT ARGUMENT
         )
     )
 )
 endlocal
+
+:: PAUSE (REMOVE AFTER DEVELOPMENT)
+pause
